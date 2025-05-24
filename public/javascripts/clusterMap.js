@@ -7,7 +7,7 @@ const map = new maptilersdk.Map({
     zoom: 3
 });
 
-map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new maptilersdk.NavigationControl());
 
 map.on('load', function () {
     map.addSource('campgrounds', {
@@ -116,4 +116,3 @@ map.on('load', function () {
 
 
 // NOTE! Later in the course, towards the top of this clusterMap.js code, container: 'map' is changed to container: 'cluster-map', and in the views/campgrounds/index.ejs, the div with the id="map" (the div that shows the map on the campgrounds index page) is changed to id="cluster-map”. Keep in mind to precisely match the id of the div (that shows the map in the index.ejs file) with the container name that you specify in the clusterMap.js file.
-

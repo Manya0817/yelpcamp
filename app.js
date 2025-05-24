@@ -23,12 +23,15 @@ const userRoutes=require('./routes/users');
 const helmet=require('helmet');
 // const DB_URL=process.env.DB_URL;
 const MongoDBStore=require("connect-mongo")(session);
-const dbUrl=process.env.DB_URL || 'mongodb://127.0.0.1:27017/yelp-camp';
+const dbUrl=process.env.DB_URL;
 
 // mongodb://127.0.0.1:27017/yelp-camp
 mongoose.set('strictQuery', true);
 // mongoose.connect(process.env.DB_URL)
-mongoose.connect(dbUrl)
+mongoose.connect(dbUrl, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
 
 
 
@@ -54,10 +57,12 @@ app.use(sanitizeV5({ replaceWith: '_' }));
 
 const secret=process.env.SECRET|| 'thisshouldbeabettersecret!';
 
-const store=new MongoDBStore({
-    url:dbUrl,
+// Replace the store configuration:
+const store = new MongoDBStore({
+    url: dbUrl,
     secret,
-    touchAfter:24*60*60
+    touchAfter: 24*60*60,
+    mongooseConnection: mongoose.connection // Add this line
 });
 
 store.on("error",function(e){
@@ -185,7 +190,7 @@ app.use((err,req,res,next)=>{
 })
 
 app.listen(3000,()=>{
-    console.log(`Serving on port ${port}`);
+    console.log(`Serving on port ${3000}`);
 }) 
 
 // _id: {_id: false},

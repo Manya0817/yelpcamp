@@ -5,6 +5,8 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/user');
 const users=require('../controllers/users');
 
+// Add this in your user registration route (routes/users.js)
+
 router.route('/register')
     .get(users.renderRegister)
     .post(catchAsync(users.register));
